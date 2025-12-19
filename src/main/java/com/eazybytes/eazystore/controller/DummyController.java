@@ -50,13 +50,10 @@ public class DummyController {
     public String getUserUsingMap(@PathVariable Map<String,String> pathVariables) {
         return "Searching for user : " + pathVariables.get("userId") + " and post : "
                 + pathVariables.get("postId");
-//    }
-////
-//@GetMapping({"/user/map/{userId}/posts/{postId}", "/user/map/{userId}"})
-//public String getUserUsingMap(@PathVariable Map<String,String> pathVariables) {
-//    return "Searching for user : " + pathVariables.get("userId") + " and post : "
-//            + pathVariables.get("postId");
-//}
+   }
+
+
+
 
 
 }
