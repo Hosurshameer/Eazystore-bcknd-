@@ -22,6 +22,14 @@ public class DummyController {
     }
 
 
+    @PostMapping("/request-entity")
+    public String createUserWithRequestEntity(RequestEntity<UserDto> requestEntity) {
+        HttpHeaders headers=requestEntity.getHeaders();
+        UserDto userDto=requestEntity.getBody();
+        return "User created successfully"+userDto;
+    }
+
+
 
     @GetMapping("/headers")
     public String readHeaders(@RequestHeader HttpHeaders headers) {
