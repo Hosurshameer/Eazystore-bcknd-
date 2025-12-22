@@ -15,15 +15,12 @@ public class ContactServiceImpl implements IContactService {
     private final ContactRepository contactRepository;
     @Override
     public boolean saveContact(ContactDto contactDto) {
-        try {
+
             Contact contact = transformToEntity(contactDto);
-            contact.setCreatedAt(Instant.now());
-            contact.setCreatedBy(contactDto.getName());
+
             contactRepository.save(contact);
             return true;
-        }catch (Exception e) {
-            return false;
-        }
+
     }
 
     private Contact transformToEntity(ContactDto contactdto){
