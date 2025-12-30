@@ -1,5 +1,5 @@
 package com.eazybytes.eazystore.dto;
 
-public record LoginResponseDto(String message,UserDto userDto,String jwtToken) {
+public record LoginResponseDto(String message,String jwtToken,UserDto user) {
 
 }

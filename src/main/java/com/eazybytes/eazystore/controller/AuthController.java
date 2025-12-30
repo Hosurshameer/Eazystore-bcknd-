@@ -31,13 +31,13 @@ private  final JwtUtil jwtUtil;
 
          try{
              Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.username(),loginRequestDto.password()));
-             var userDto=new UserDto();
+             var user=new UserDto();
              var loggedInUser=(User)authentication.getPrincipal();
-           userDto.setName(loggedInUser.getUsername());
+           user.setName(loggedInUser.getUsername());
 
              String jwtToken=jwtUtil.generateJwtToken(authentication);
              return ResponseEntity.ok()
-                     .body(new LoginResponseDto(HttpStatus.OK.getReasonPhrase(), userDto, jwtToken));
+                     .body(new LoginResponseDto(HttpStatus.OK.getReasonPhrase(), jwtToken,user));
          }catch (BadCredentialsException ex) {
              return buildErrorResponse(HttpStatus.UNAUTHORIZED,
                      "Invalid username or password");
