@@ -51,13 +51,15 @@ public class EazyStoreSecurityConfig {
     }
 
 
-    @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        var user1=User.builder().username("sameer").password("$2a$12$QQFV.yyAKDICaMXlpPJiy.cIHgDa7RfU2Q/QZslBLq1JPba5QFJk2").roles("USER").build();
-        var user2=User.builder().username("admin").password("$2a$12$UedZH2ZGYptv5jH5W8YydeQQLTpSlyoG176COKy6aFSzTl31T/o42").roles("ADMIN","USER").build();
+//    @Bean
+//    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+//        var user1=User.builder().username("sameer").password("$2a$12$QQFV.yyAKDICaMXlpPJiy.cIHgDa7RfU2Q/QZslBLq1JPba5QFJk2").roles("USER").build();
+//        var user2=User.builder().username("admin").password("$2a$12$UedZH2ZGYptv5jH5W8YydeQQLTpSlyoG176COKy6aFSzTl31T/o42").roles("ADMIN","USER").build();
+//
+//        return new InMemoryUserDetailsManager(user1,user2);
+//    }
 
-        return new InMemoryUserDetailsManager(user1,user2);
-    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -65,9 +67,10 @@ public class EazyStoreSecurityConfig {
 
 
     @Bean
-    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService,PasswordEncoder passwordEncoder){
-         var daoAuthenticationProvider=new DaoAuthenticationProvider(userDetailsService);
-         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+    public AuthenticationManager authenticationManager(PasswordEncoder passwordEncoder){
+         var daoAuthenticationProvider=new DaoAuthenticationProvider();
+
+
          daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
         var providerManager=new ProviderManager(daoAuthenticationProvider);
         return providerManager;
