@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.password.CompromisedPasswordChecker;
+import org.springframework.security.authentication.password.CompromisedPasswordDecision;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -40,6 +42,9 @@ public class AuthController {
 private  final AuthenticationManager authenticationManager;
 
 private final CustomerRepository customerRepository;
+
+private final CompromisedPasswordChecker compromisedPasswordChecker;
+
 private final PasswordEncoder passwordEncoder;
 private  final JwtUtil jwtUtil;
 
@@ -70,6 +75,12 @@ private  final JwtUtil jwtUtil;
     }
     @PostMapping("/register")
     private  ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequestDto registerRequestDto){
+        CompromisedPasswordDecision decision=compromisedPasswordChecker.check(registerRequestDto.getPassword());
+
+        if(decision.isCompromised()){
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("password","Choose a strong password"));
+        }
+
                 Optional<Customer> existingCustomer=customerRepository.findByEmailOrMobileNumber(registerRequestDto.getEmail(),registerRequestDto.getMobileNumber());
         if(existingCustomer.isPresent()){
             Map<String,String> errors=new HashMap<>();

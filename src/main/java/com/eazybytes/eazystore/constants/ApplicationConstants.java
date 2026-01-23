@@ -13,4 +13,7 @@ public class ApplicationConstants {
     public static final String JWT_SECRET_DEFAULT_VALUE = "jxgEQeXHuPq8VdbyYFNkANdudQ53YUn4";
 
 
+
+
+
 }
