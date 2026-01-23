@@ -53,14 +53,14 @@ private  final JwtUtil jwtUtil;
 
          try{
              Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.username(),loginRequestDto.password()));
-             var user=new UserDto();
-             var loggedInUser=(User)authentication.getPrincipal();
-           user.setName(loggedInUser.getUsername());
+             var userDto=new UserDto();
+             var loggedInUser=(Customer)authentication.getPrincipal();
+             BeanUtils.copyProperties(loggedInUser,userDto);
 
 
              String jwtToken=jwtUtil.generateJwtToken(authentication);
              return ResponseEntity.ok()
-                     .body(new LoginResponseDto(HttpStatus.OK.getReasonPhrase(), jwtToken,user));
+                     .body(new LoginResponseDto(HttpStatus.OK.getReasonPhrase(), jwtToken,userDto));
          }catch (BadCredentialsException ex) {
              return buildErrorResponse(HttpStatus.UNAUTHORIZED,
                      "Invalid username or password");
