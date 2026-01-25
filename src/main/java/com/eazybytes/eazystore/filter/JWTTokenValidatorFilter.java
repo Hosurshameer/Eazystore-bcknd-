@@ -14,15 +14,19 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class JWTTokenValidatorFilter extends OncePerRequestFilter {
+    private  final AntPathMatcher pathMatcher=new AntPathMatcher();
+    private final List<String> publicPaths;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -53,4 +57,15 @@ public class JWTTokenValidatorFilter extends OncePerRequestFilter {
        filterChain.doFilter(request,response);
 
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+
+        String path=request.getRequestURI();
+        return publicPaths.stream().anyMatch(publicPath->pathMatcher.match(publicPath,path));
+
+
+    }
+
+
 }
