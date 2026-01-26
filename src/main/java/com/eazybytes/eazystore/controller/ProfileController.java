@@ -18,8 +18,9 @@ private final IProfileService iProfileService;
 
     @GetMapping
     public ResponseEntity<ProfileResponseDto> getProfile(){
+        ProfileResponseDto profileResponseDto=iProfileService.getProfile();
 
-    return  ResponseEntity.ok(iProfileService.getProfile());
+    return  ResponseEntity.ok(profileResponseDto);
 
 
 
