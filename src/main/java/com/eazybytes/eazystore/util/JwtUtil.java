@@ -25,7 +25,7 @@ public class JwtUtil {
         Customer fetchedCustomer=(Customer)authentication.getPrincipal();
         jwt= Jwts.builder().issuer("Eazy Store").subject("JWT Token")
                 .claim("username",fetchedCustomer.getName())
-                .claim("email:",fetchedCustomer.getEmail())
+                .claim("email",fetchedCustomer.getEmail())
                 .claim("mobileNumber",fetchedCustomer.getMobileNumber())
                 .issuedAt(new java.util.Date())
                 .expiration(new java.util.Date((new java.util.Date()).getTime()+60*60*1000))
