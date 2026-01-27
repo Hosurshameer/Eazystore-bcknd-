@@ -48,4 +48,6 @@ public class Customer extends BaseEntity{
     private String passwordHash;
 
 
+    @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL)
+   private  Address address;
 }
