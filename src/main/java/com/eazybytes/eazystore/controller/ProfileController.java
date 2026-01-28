@@ -1,14 +1,15 @@
 package com.eazybytes.eazystore.controller;
 
 
+import com.eazybytes.eazystore.dto.ProfileRequestDto;
 import com.eazybytes.eazystore.dto.ProfileResponseDto;
 import com.eazybytes.eazystore.service.IProfileService;
 import com.eazybytes.eazystore.service.impl.ProfileServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/profile")
@@ -24,5 +25,10 @@ private final IProfileService iProfileService;
 
 
 
+    }
+    @PutMapping
+    public  ResponseEntity<ProfileResponseDto> updateProfile(@Validated @RequestBody ProfileRequestDto profileRequestDto){
+       ProfileResponseDto profileResponseDto=iProfileService.updateProfile(profileRequestDto);
+       return ResponseEntity.ok(profileResponseDto);
     }
 }
