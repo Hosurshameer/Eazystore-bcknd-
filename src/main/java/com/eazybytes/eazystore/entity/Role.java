@@ -1,4 +1,9 @@
 package com.eazybytes.eazystore.entity;
 
-public class Role {
+
+import jakarta.persistence.Entity;
+
+@Entity
+public class Role extends  BaseEntity{
+
 }
