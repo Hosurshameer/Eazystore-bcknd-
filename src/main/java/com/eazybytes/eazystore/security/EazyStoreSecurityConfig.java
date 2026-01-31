@@ -48,9 +48,9 @@ public class EazyStoreSecurityConfig {
                    publicPathConfig.publicPaths().forEach(path ->
                    requests.requestMatchers(path).permitAll());
 
-//                   requests.requestMatchers("/api/v1/admin/**").hasAnyRole("ADMIN");
+                   requests.requestMatchers("/api/v1/admin/**").hasRole("ADMIN");
 
-           requests.anyRequest().authenticated();
+           requests.anyRequest().hasAnyRole("USER","ADMIN");
        })
                .addFilterBefore(new JWTTokenValidatorFilter(publicPathConfig.publicPaths()), BasicAuthenticationFilter.class)
                .formLogin(withDefaults())
