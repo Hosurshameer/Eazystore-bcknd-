@@ -6,6 +6,7 @@ import com.eazybytes.eazystore.dto.LoginResponseDto;
 import com.eazybytes.eazystore.dto.RegisterRequestDto;
 import com.eazybytes.eazystore.dto.UserDto;
 import com.eazybytes.eazystore.entity.Customer;
+import com.eazybytes.eazystore.entity.Role;
 import com.eazybytes.eazystore.repository.CustomerRepository;
 import com.eazybytes.eazystore.util.JwtUtil;
 
@@ -30,10 +31,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -81,7 +79,7 @@ private  final JwtUtil jwtUtil;
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("password","Choose a strong password"));
         }
 
-                Optional<Customer> existingCustomer=customerRepository.findByEmailOrMobileNumber(registerRequestDto.getEmail(),registerRequestDto.getMobileNumber());
+        Optional<Customer> existingCustomer=customerRepository.findByEmailOrMobileNumber(registerRequestDto.getEmail(),registerRequestDto.getMobileNumber());
         if(existingCustomer.isPresent()){
             Map<String,String> errors=new HashMap<>();
             Customer customer=existingCustomer.get();
@@ -102,6 +100,10 @@ private  final JwtUtil jwtUtil;
            Customer customer=new Customer();
         BeanUtils.copyProperties(registerRequestDto,customer);
          customer.setPasswordHash(passwordEncoder.encode(registerRequestDto.getPassword()));
+         Role role=new Role();
+         role.setName("ROLE_USER");
+         customer.setRoles(Set.of(role));
+
         customerRepository.save(customer);
 
 
