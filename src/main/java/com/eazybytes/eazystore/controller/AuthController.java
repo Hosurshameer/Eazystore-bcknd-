@@ -22,6 +22,7 @@ import org.springframework.security.authentication.password.CompromisedPasswordC
 import org.springframework.security.authentication.password.CompromisedPasswordDecision;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -53,8 +55,14 @@ private  final JwtUtil jwtUtil;
              Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.username(),loginRequestDto.password()));
              var userDto=new UserDto();
              var loggedInUser=(Customer)authentication.getPrincipal();
+
+
              BeanUtils.copyProperties(loggedInUser,userDto);
 
+
+             userDto.setRoles(authentication.getAuthorities().stream()
+                     .map(GrantedAuthority::getAuthority)
+                     .collect(Collectors.joining(",")));
 
              String jwtToken=jwtUtil.generateJwtToken(authentication);
              return ResponseEntity.ok()
