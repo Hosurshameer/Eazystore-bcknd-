@@ -44,8 +44,10 @@ public class EazyStoreSecurityConfig {
     @Bean
 
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+       CookieCsrfTokenRepository tokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+       tokenRepository.setCookiePath("/"); // Ensure cookie is sent for all backend paths
        return  http.cors(corsConfig -> corsConfig.configurationSource(corsConfigurationSource()))
-               .csrf(csrfConfig->csrfConfig.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+               .csrf(csrfConfig->csrfConfig.csrfTokenRepository(tokenRepository)
                        .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
                .authorizeHttpRequests((requests) ->{
                    publicPathConfig.publicPaths().forEach(path ->
