@@ -15,6 +15,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Getter
 @Setter
+//@Table(name = "roles")
 public class Role extends  BaseEntity{
 
         @Id
