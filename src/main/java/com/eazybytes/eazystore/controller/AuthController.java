@@ -60,7 +60,7 @@ private  final JwtUtil jwtUtil;
                  AddressDto addressDto = new AddressDto();
 
                  BeanUtils.copyProperties(loggedInUser.getAddress(), addressDto);
-                 userDto.setAddressDto(addressDto);
+                 userDto.setAddress(addressDto);
              }
 
 

@@ -69,7 +69,7 @@ public class ProfileServiceImpl implements IProfileService {
             AddressDto addressDto =new AddressDto();
 
             BeanUtils.copyProperties(customer.getAddress(),addressDto);
-           profileResponseDto.setAddressDto(addressDto);
+           profileResponseDto.setAddress(addressDto);
 //            profileResponseDto.setStreet(customer.getAddress().getStreet());
 //            profileResponseDto.setCity(customer.getAddress().getCity());
 //            profileResponseDto.setState(customer.getAddress().getState());

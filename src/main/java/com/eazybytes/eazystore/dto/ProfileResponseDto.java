@@ -12,7 +12,7 @@ public class ProfileResponseDto {
     private String name;
     private String email;
     private String mobileNumber;
-   private  AddressDto addressDto;
+   private  AddressDto address;
     private boolean emailUpdated;
 
 }

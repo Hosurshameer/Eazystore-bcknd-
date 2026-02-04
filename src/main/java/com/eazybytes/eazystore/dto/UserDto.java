@@ -11,7 +11,7 @@ public class UserDto {
     private String name;
     private String email;
     private String mobileNumber;
-    private AddressDto addressDto;
+    private AddressDto address;
     public String roles;
 
 }
