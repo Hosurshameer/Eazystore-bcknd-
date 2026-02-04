@@ -42,7 +42,7 @@ public class ProfileRequestDto {
     private String postalCode;
 
     @NotBlank(message = "Country is required")
-    @Size(min = 2, max = 2, message = "The length of the country should be between 3 and 30 characters")
+    @Size(min = 2, max = 2, message = "The length of the country should be exactly 2 characters")
     private String country;
 
 }
