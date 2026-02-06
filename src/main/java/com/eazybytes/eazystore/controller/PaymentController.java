@@ -7,9 +7,7 @@ import com.eazybytes.eazystore.service.iPaymentService;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/payment")
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaymentController {
     private final iPaymentService ipaymentService;
 
-
+  @PostMapping("/create-payment-intent")
     public ResponseEntity<PaymentResponseDto> createPaymentIntent(@RequestBody PaymentRequestDto paymentRequestDto){
 
         PaymentResponseDto response= ipaymentService.createPaymentIntent(paymentRequestDto);
