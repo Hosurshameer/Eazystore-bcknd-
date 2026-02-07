@@ -33,6 +33,8 @@ public class EazyStoreUsernamePwdAuthenticationProvider implements Authenticatio
                 ()-> new UsernameNotFoundException("user details  not found for the user:"+ username)
         );
              Set<Role> roles=customer.getRoles();
+
+
              List<SimpleGrantedAuthority> authorities=roles.stream().map(role->new SimpleGrantedAuthority(role.getName())).toList();
         if(passwordEncoder.matches(pwd,customer.getPasswordHash())){
             return  new UsernamePasswordAuthenticationToken(customer,null,authorities);
