@@ -55,7 +55,7 @@ public class ProfileServiceImpl implements IProfileService {
     }
 
 
-    private Customer getAuthenticatedCustomer() {
+    public  Customer getAuthenticatedCustomer() {
         Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         return customerRepository.findByEmail(email).

@@ -14,6 +14,14 @@ public class ApplicationConstants {
     public static  final String JWT_HEADER="Authorization";
 
 
+    public static  final String ORDER_STATUS_CREATED="CREATED";
+    public static  final String ORDER_STATUS_PAID="Paid";
+    public static  final String ORDER_STATUS_SHIPPED="Shipped";
+    public static  final String ORDER_STATUS_DELIVERED="Delivered";
+    public static  final String ORDER_STATUS_CANCELLED="CANCELLED";
+    public  static  final String ORDER_STATUS_CONFIRMED="CONFIRMED";
+
+
 
 
 }
