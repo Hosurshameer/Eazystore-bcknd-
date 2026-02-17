@@ -14,7 +14,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findByOrderStatus(String orderStatus);
 
-    @Query("select 0 from Order o where o.customer=:customer order by o.createdAt desc")
+    @Query("select o from Order o where o.customer=:customer order by o.createdAt desc")
     List<Order> findOrderByCustomer(@Param("customer") Customer customer );
 
 
