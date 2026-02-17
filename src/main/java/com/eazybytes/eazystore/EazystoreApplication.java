@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 public class EazystoreApplication { 
     public static void main(String[] args) {
         SpringApplication.run(EazystoreApplication.class, args);
-
     }
 }
 
