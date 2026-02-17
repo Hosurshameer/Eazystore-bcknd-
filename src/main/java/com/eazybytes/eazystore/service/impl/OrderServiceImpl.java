@@ -60,7 +60,7 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public List<OrderResponseDto> getCustomerOrders() {
         Customer customer=profileServiceImpl.getAuthenticatedCustomer();
-        List<Order>orders=orderRepository.findByCustomerOrderByCreatedAtDesc(customer);
+        List<Order>orders=orderRepository.findOrderByCustomer(customer);
         return orders.stream().map(this::mapToOrderResponseDto).collect(Collectors.toList());
 
     }
