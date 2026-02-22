@@ -16,6 +16,8 @@ import com.eazybytes.eazystore.repository.ProductRepository;
 import com.eazybytes.eazystore.service.IOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -73,7 +75,9 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public void updateOrderStatus(Long orderId, String orderStatus) {
-       orderRepository.updateOrderStatus(orderId,orderStatus);
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        String updatedBy=authentication.getName();
+       orderRepository.updateOrderStatus(orderId,orderStatus,updatedBy);
     }
 
 

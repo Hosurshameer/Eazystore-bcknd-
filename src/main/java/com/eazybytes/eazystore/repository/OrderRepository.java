@@ -29,10 +29,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 //    @Query(value = "select * from orders o where o.customer_id=:customerId order by o.created_at desc",nativeQuery = true)
 //    List<Order> findOrderByCustomer(@Param("customerId") Long customerId);
 
-   @Transactional
+    @Transactional
     @Modifying
-    @Query("update Order o set o.orderStatus=:orderStatus where o.orderId=:orderId")
-    int updateOrderStatus(@Param("orderId")Long orderId, @Param("orderStatus")String orderStatus);
+    @Query("update Order o set o.orderStatus=:orderStatus,o.updatedAt=CURRENT_TIMESTAMP,o.updatedBy=:updatedBy where o.orderId=:orderId")
+    int updateOrderStatus(@Param("orderId")Long orderId, @Param("orderStatus")String orderStatus,@Param("updatedBy") String updatedBy);
 
 
 
