@@ -2,7 +2,9 @@ package com.eazybytes.eazystore.repository;
 
 import com.eazybytes.eazystore.entity.Customer;
 import com.eazybytes.eazystore.entity.Order;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -27,7 +29,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 //    @Query(value = "select * from orders o where o.customer_id=:customerId order by o.created_at desc",nativeQuery = true)
 //    List<Order> findOrderByCustomer(@Param("customerId") Long customerId);
 
-
+   @Transactional
+    @Modifying
+    @Query("update Order o set o.orderStatus=:orderStatus where o.orderId=:orderId")
+    int updateOrderStatus(@Param("orderId")Long orderId, @Param("orderStatus")String orderStatus);
 
 
 
