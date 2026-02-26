@@ -57,6 +57,16 @@ CREATE TABLE IF NOT EXISTS roles (
     UNIQUE KEY unique_name(name);
     );
 
+    create table if not exists customer_roles(
+    customer_id bigint not null,
+    role_id bigint not null,
+
+    primary key (customer_id,role_id),
+    foreign key(customer_id) references customers(customer_id) on delete cascade,
+    foreign key(role_id) references roles(role_id) on delete cascade
+
+    );
+
 
 
     CREATE TABLE IF NOT EXISTS order_items
