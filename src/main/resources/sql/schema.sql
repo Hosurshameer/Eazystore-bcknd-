@@ -57,6 +57,16 @@ CREATE TABLE IF NOT EXISTS roles (
     UNIQUE KEY unique_name(name);
     );
 
+    create table if not exists customer_roles(
+    customer_id bigint not null,
+    role_id bigint not null,
+
+    primary key (customer_id,role_id),
+    foreign key(customer_id) references customers(customer_id) on delete cascade,
+    foreign key(role_id) references roles(role_id) on delete cascade
+
+    );
+
 
 
     CREATE TABLE IF NOT EXISTS order_items
@@ -89,3 +99,8 @@ CREATE TABLE IF NOT EXISTS orders
     updated_by     VARCHAR(20) DEFAULT NULL,
     FOREIGN KEY (customer_id) REFERENCES customers (customer_id)
     );
+
+    insert into roles(name,created_at,created_by) values('ROLE_USER',CURRENT_TIMESTAMP,'DBA');
+    insert into roles(name,created_at,created_by) values('ROLE_ADMIN',CURRENT_TIMESTAMP,'DBA');
+    insert into roles(name,created_at,created_by) values('ROLE_OPS_ENG',CURRENT_TIMESTAMP,'DBA');
+    insert into roles(name,created_at,created_by) values('ROLE_QA_ENG',CURRENT_TIMESTAMP,'DBA');
