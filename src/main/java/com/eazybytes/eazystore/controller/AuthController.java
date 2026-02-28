@@ -40,7 +40,7 @@ public class AuthController {
 private  final AuthenticationManager authenticationManager;
 
 private final CustomerRepository customerRepository;
-private final RoleRepository repository;
+private final RoleRepository roleRepository;
 
 private final CompromisedPasswordChecker compromisedPasswordChecker;
 
@@ -114,10 +114,7 @@ private  final JwtUtil jwtUtil;
            Customer customer=new Customer();
         BeanUtils.copyProperties(registerRequestDto,customer);
          customer.setPasswordHash(passwordEncoder.encode(registerRequestDto.getPassword()));
-         Role role=new Role();
-         role.setName("ROLE_USER");
-         customer.setRoles(Set.of(role));
-
+        roleRepository.findByName("ROLE_USER").ifPresent(role->customer.setRoles(Set.of(role)));
         customerRepository.save(customer);
 
 
