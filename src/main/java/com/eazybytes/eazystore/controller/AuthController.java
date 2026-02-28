@@ -5,6 +5,7 @@ import com.eazybytes.eazystore.dto.*;
 import com.eazybytes.eazystore.entity.Customer;
 import com.eazybytes.eazystore.entity.Role;
 import com.eazybytes.eazystore.repository.CustomerRepository;
+import com.eazybytes.eazystore.repository.RoleRepository;
 import com.eazybytes.eazystore.util.JwtUtil;
 
 import jakarta.validation.Valid;
@@ -39,6 +40,7 @@ public class AuthController {
 private  final AuthenticationManager authenticationManager;
 
 private final CustomerRepository customerRepository;
+private final RoleRepository repository;
 
 private final CompromisedPasswordChecker compromisedPasswordChecker;
 
