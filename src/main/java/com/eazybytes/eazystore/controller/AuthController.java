@@ -114,7 +114,12 @@ private  final JwtUtil jwtUtil;
            Customer customer=new Customer();
         BeanUtils.copyProperties(registerRequestDto,customer);
          customer.setPasswordHash(passwordEncoder.encode(registerRequestDto.getPassword()));
-        roleRepository.findByName("ROLE_USER").ifPresent(role->customer.setRoles(Set.of(role)));
+
+         Role role = roleRepository.findByName("ROLE_USER")
+                 .orElseThrow(() -> new RuntimeException("ROLE_USER not found"));
+
+        customer.setRoles(Set.of(role));
+
         customerRepository.save(customer);
 
 
