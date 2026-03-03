@@ -11,10 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -29,9 +26,9 @@ public class ProductController {
     private  final IProductService iProductService;
 
     @GetMapping
-  public ResponseEntity<PageResponseDto> getProdcts( Pageable pageable)  {
+  public ResponseEntity<PageResponseDto> getProdcts(@RequestParam(required = false) String keyword, Pageable pageable)  {
 
 //        return ResponseEntity.status(HttpStatus.OK).body(iProductService.getProducts());
-        return ResponseEntity.ok().body(iProductService.getProducts(pageable));
+        return ResponseEntity.ok().body(iProductService.getProducts(keyword,pageable));
   }
 }

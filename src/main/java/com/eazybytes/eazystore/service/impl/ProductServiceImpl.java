@@ -23,10 +23,19 @@ public class ProductServiceImpl implements IProductService {
     private  final ProductRepository productRepository;
 
 
-    @Cacheable(value = "products", key = "#pageable.pageNumber + '-' + #pageable.pageSize")
+    @Cacheable(
+            value = "products",
+            key = "(#keyword == null ? 'all' : #keyword) + '-' + #pageable.pageNumber + '-' + #pageable.pageSize"
+    )
     @Override
-    public PageResponseDto getProducts(Pageable pageable) {
-        Page<Product> page=productRepository.findAll(pageable);
+    public PageResponseDto getProducts(String keyword,Pageable pageable) {
+        Page<Product>page;
+//        Page<Product> page=productRepository.findAll(pageable);
+        if(keyword !=null && !keyword.trim().isEmpty()){
+            page=productRepository.findByNameContainingIgnoreCase(keyword,pageable);
+        }else{
+            page=productRepository.findAll(pageable);
+        }
        List<ProductDto>content=page.getContent().stream().map(this::transformToDto).collect(Collectors.toUnmodifiableList());
 
        return new PageResponseDto(content,page.getNumber(),page.getTotalPages(), page.getTotalElements(),page.getSize());

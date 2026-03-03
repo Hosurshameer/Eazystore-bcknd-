@@ -8,5 +8,5 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface IProductService {
-    PageResponseDto getProducts(Pageable pageable);
+    PageResponseDto getProducts(String keyword,Pageable pageable);
 }
