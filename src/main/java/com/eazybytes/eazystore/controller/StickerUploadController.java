@@ -76,6 +76,9 @@ public class StickerUploadController {
 
         return ResponseEntity.ok(stickers);
 
+
+
+
     }
 
 }
